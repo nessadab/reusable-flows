@@ -1,33 +1,38 @@
 name: Reusable Workflow
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
       node-version:
         description: "Node.js version"
         required: false
-        default: "18"
+        type: string
+        default: "18.x"
 
       npm-install-command:
-        description: "NPM install command"
+        description: "Npm command to run for building the application"
         required: true
+        type: string
+        default: "ci"
 
       run-playwright:
         description: "Run Playwright tests"
         required: false
-        default: "true"
+        type: boolean
+        default: true
 
       upload-artifact:
         description: "Enable artifact upload"
         required: false
-        default: "true"
-      
-      secrets:
-        USERNAME:
-          description: "Username for testing"
-          required: false
-        PASSWORD:
-          description: "Password for testing"
-          required: false
+        type: boolean
+        default: true
+
+    secrets:
+      USERNAME:
+        description: Username for testing
+        required: false
+      PASSWORD:
+        description: Password for testing
+        required: false
 
 jobs:
   test:
